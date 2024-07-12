@@ -21,7 +21,7 @@ let package = Package(
         .define("SQLITE_TEMP_STORE", to: "3"),
         .define("SQLITE_CRYPTO_CC"),
         .define("NDEBUG", to: "1"),
-        .unsafeFlags(["-I/opt/homebrew/opt/openssl@1.1/include"])
+        .unsafeFlags(["-I/opt/homebrew/opt/openssl/include"])
       ],
       swiftSettings: [
         .define("SQLITE_HAS_CODEC"),
@@ -29,7 +29,7 @@ let package = Package(
       linkerSettings: [
         .linkedFramework("Foundation"),
         .linkedFramework("Security"),
-        .unsafeFlags(["-v", "/opt/homebrew/opt/openssl@1.1/lib/libcrypto.a"])
+        .unsafeFlags(["-v", "/opt/homebrew/opt/openssl/lib/libcrypto.a"])
       ]),
     .testTarget(
       name: "SQLCipherTests",
