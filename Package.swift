@@ -24,8 +24,7 @@ let package = Package(
               .unsafeFlags(["-I/opt/homebrew/Cellar/openssl@3/3.3.1/include"])],
             linkerSettings: [
               .linkedFramework("Foundation"),
-              .linkedFramework("Security"),
-              .unsafeFlags(["LDFLAGS=/opt/homebrew/Cellar/openssl@3/3.3.1/lib/libcrypto.a"])
+              .linkedFramework("Security")
             ]),
     ]
 )

@@ -1,0 +1,1 @@
+              .unsafeFlags(["LDFLAGS=/opt/homebrew/Cellar/openssl@3/3.3.1/lib/libcrypto.a"])
