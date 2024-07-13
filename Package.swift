@@ -4,6 +4,9 @@ import PackageDescription
 
 let package = Package(
   name: "SQLCipher",
+  platforms: [
+    .macOS(.v14),
+  ],
   products: [
     .executable(name: "sqlcipher", targets: ["SQLCipherCli"]),
     .library(
@@ -18,7 +21,7 @@ let package = Package(
         .define("SQLITE_TEMP_STORE", to: "3"),
         .define("SQLITE_CRYPTO_CC"),
         .define("NDEBUG", to: "1"),
-        .unsafeFlags(["-I/opt/homebrew/opt/openssl/include"])
+        .unsafeFlags(["-w", "-I/opt/homebrew/opt/openssl/include"])
       ],
       swiftSettings: [
         .define("SQLITE_HAS_CODEC"),
@@ -28,7 +31,8 @@ let package = Package(
         .linkedFramework("Security"),
         .unsafeFlags(["-v", "/opt/homebrew/opt/openssl/lib/libcrypto.a"])
       ]),
-    .target(name: "SQLCipherCli", dependencies: ["SQLCipher"]),
+    .executableTarget(name: "SQLCipherCli", dependencies: ["SQLCipher"]),
+//    .target(name: "SQLCipherCli", dependencies: ["SQLCipher"]),
     .testTarget(
       name: "SQLCipherTests",
       dependencies: ["SQLCipher"]),

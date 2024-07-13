@@ -30,6 +30,12 @@ nm /opt/homebrew/opt/openssl/lib/libcrypto.a | grep -i 'EVP_aes_256_cbc'
 .unsafeFlags(["/opt/homebrew/opt/openssl/lib/libcrypto.a"])
 ```
 
+## Buillding
+
+Compiler warnings are supressed for the `sqlite3.c` file. The macOS version in `Package.swift` must match the platform, otherwise you get 'was built for newer macOS version' linker warnings.
+
+Can probably also be done with `export MACOSX_DEPLOYMENT_TARGET=14`
+
 ## Testing
 
 Includes a `sqlcipher` executable that dumps all the tables to test the SQLCipher library.
