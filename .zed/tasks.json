@@ -1,0 +1,4 @@
+[
+  { "label": "swift build", "command": "swift build" },
+  { "label": "swift test", "command": "swift test" }
+]

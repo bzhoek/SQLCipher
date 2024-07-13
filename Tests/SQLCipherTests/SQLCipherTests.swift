@@ -3,21 +3,29 @@ import XCTest
 
 final class SQLCipherTests: XCTestCase {
   func testMemoryDatabase() throws {
-    var rc: Int32
     var db: OpaquePointer? = nil
-    var stmt: OpaquePointer? = nil
     let password: String = "correct horse battery staple"
-    rc = sqlite3_open(":memory:", &db)
-    if (rc != SQLITE_OK) {
+
+    if sqlite3_open(":memory:", &db) != SQLITE_OK {
       let errmsg = String(cString: sqlite3_errmsg(db))
-      NSLog("Error opening database: \(errmsg)")
-      exit(1)
+      fatalError("Error opening database: \(errmsg)")
     }
-    rc = sqlite3_key(db, password, Int32(password.utf8CString.count))
-    if (rc != SQLITE_OK) {
-      let errmsg = String(cString: sqlite3_errmsg(db))
-      NSLog("Error setting key: \(errmsg)")
+
+    if sqlite3_key(db, password, Int32(password.utf8CString.count)) != SQLITE_OK {
+      fatalError(String(cString: sqlite3_errmsg(db)))
     }
-    print("DONE")
+
+    var stmt: OpaquePointer? = nil
+
+    if sqlite3_prepare(db, "PRAGMA cipher_version;", -1, &stmt, nil) != SQLITE_OK {
+      fatalError(String(cString: sqlite3_errmsg(db)))
+    }
+
+    if sqlite3_step(stmt) != SQLITE_ROW {
+      fatalError(String(cString: sqlite3_errmsg(db)))
+    }
+
+    let version = String(cString: sqlite3_column_text(stmt, 0))
+    XCTAssertEqual(version, "4.6.0 community")
   }
 }
