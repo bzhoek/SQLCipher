@@ -29,10 +29,9 @@ let package = Package(
       linkerSettings: [
         .linkedFramework("Foundation"),
         .linkedFramework("Security"),
-        .unsafeFlags(["-v", "/opt/homebrew/opt/openssl/lib/libcrypto.a"])
+        .unsafeFlags(["/opt/homebrew/opt/openssl/lib/libcrypto.a"])
       ]),
     .executableTarget(name: "SQLCipherCli", dependencies: ["SQLCipher"]),
-//    .target(name: "SQLCipherCli", dependencies: ["SQLCipher"]),
     .testTarget(
       name: "SQLCipherTests",
       dependencies: ["SQLCipher"]),
